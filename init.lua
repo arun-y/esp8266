@@ -63,11 +63,16 @@ wifi.sta.eventMonReg(wifi.STA_GOTIP,
         m:on("message", function(client, topic, data) 
             print(topic .. ":" ) 
             if data ~= nil then
-                print(data)
+                print(data) 
+                if data == "1" then
+                    gpio.write(4, gpio.HIGH)
+                elseif data == "0" then
+                    gpio.write(4, gpio.LOW)
+                end     
             end
         end)
-    
-        m:connect("cloud.iot-playground.com", 
+        --cloud.iot-playground.com
+        m:connect("192.168.0.106", 
             1883, 
             0, 
             function(client) 
